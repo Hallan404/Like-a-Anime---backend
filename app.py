@@ -28,6 +28,11 @@ usuario_anime = db.Table('usuario_anime',
     db.Column('usuario_id', db.Integer, db.ForeignKey('usuario.id'), primary_key=True),
     db.Column('anime_id', db.Integer, db.ForeignKey('anime.id'), primary_key=True)
 )
+@app.route('/')
+def initial():
+    return '''<h1>API Like a anime</h1>
+<p> Api construida para o projeto integrador 4 </p>
+<h3>"Construção de Portal"</h3>'''
 
 # Rota para criar um novo usuário
 @app.route('/usuarios', methods=['POST'])

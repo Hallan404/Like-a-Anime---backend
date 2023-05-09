@@ -4,7 +4,6 @@ import sys
 
 def git_pull():
     subprocess.check_call(['git', 'pull'])
-
 try:
     git_pull()
 except Exception as e:
