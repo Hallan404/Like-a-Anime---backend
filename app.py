@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -79,11 +80,11 @@ def atualizar_usuario(id):
     usuario = Usuario.query.get(id)
     if not usuario:
         return jsonify({'message': 'Usuário não encontrado.'}), 404
-        dados_atualizados = request.json
-        usuario.nome = dados_atualizados.get('nome', usuario.nome)
-        usuario.apelido = dados_atualizados.get('apelido', usuario.apelido)
-        usuario.email = dados_atualizados.get('email', usuario.email)
-        usuario.senha = dados_atualizados.get('senha', usuario.senha)
+    dados_atualizados = request.json
+    usuario.nome = dados_atualizados.get('nome', usuario.nome)
+    usuario.apelido = dados_atualizados.get('apelido',usuario.apelido)
+    usuario.email = dados_atualizados.get('email', usuario.email)
+    usuario.senha = dados_atualizados.get('senha', usuario.senha)
     if 'animes_preferidos' in dados_atualizados:
         animes_preferidos = Anime.query.filter(Anime.nome.in_(dados_atualizados['animes_preferidos'])).all()
         usuario.animes_preferidos = animes_preferidos
@@ -96,8 +97,8 @@ def excluir_usuario(id):
     usuario = Usuario.query.get(id)
     if not usuario:
         return jsonify({'message': 'Usuário não encontrado.'}), 404
-        db.session.delete(usuario)
-        db.session.commit()
+    db.session.delete(usuario)
+    db.session.commit()
     return jsonify({'message': 'Usuário excluído com sucesso.'})
 
 # Rota para criar um novo anime
@@ -124,7 +125,7 @@ def obter_anime_por_id(id):
     anime = Anime.query.get(id)
     if not anime:
         return jsonify({'message': 'Anime não encontrado.'}), 404
-        resultado = {'id': anime.id, 'nome': anime.nome, 'categoria': anime.categoria}
+    resultado = {'id': anime.id, 'nome': anime.nome, 'categoria': anime.categoria}
     return jsonify(resultado)
 
 # Rota para atualizar um anime
@@ -133,10 +134,10 @@ def atualizar_anime(id):
     anime = Anime.query.get(id)
     if not anime:
         return jsonify({'message': 'Anime não encontrado.'}), 404
-        dados_atualizados = request.json
-        anime.nome = dados_atualizados.get('nome', anime.nome)
-        anime.categoria = dados_atualizados.get('categoria', anime.categoria)
-        db.session.commit()
+    dados_atualizados = request.json
+    anime.nome = dados_atualizados.get('nome', anime.nome)
+    anime.categoria = dados_atualizados.get('categoria', anime.categoria)
+    db.session.commit()
     return jsonify({'message': 'Anime atualizado com sucesso.'})
 
 # Rota para excluir um anime
@@ -145,8 +146,8 @@ def excluir_anime(id):
     anime = Anime.query.get(id)
     if not anime:
         return jsonify({'message': 'Anime não encontrado.'}), 404
-        db.session.delete(anime)
-        db.session.commit()
+    db.session.delete(anime)
+    db.session.commit()
     return jsonify({'message': 'Anime excluído com sucesso.'})
 
 if __name__ == '__main__':
