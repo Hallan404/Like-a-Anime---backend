@@ -75,8 +75,8 @@ def obter_usuario_por_id(id):
     return jsonify(resultado)
 
 # Rota para obter um usuário por nome de usuário
-@app.route('/usuarios/nome/<string:nome_usuario>', methods=['GET'])
-def buscar_usuario_por_nome(nome_usuario):
+@app.route('/usuarios/nome_usuario/<string:nome_usuario>', methods=['GET'])
+def buscar_usuario_por_nome_usuario(nome_usuario):
     usuario = Usuario.query.filter_by(apelido=nome_usuario).first()
     if not usuario:
         return jsonify({'message': 'Usuário não encontrado.'}), 404
@@ -89,8 +89,8 @@ def buscar_usuario_por_nome(nome_usuario):
         'animes_preferidos': [anime.nome for anime in usuario.animes_preferidos]
     })
 # Rota para obter um usuário por email
-@app.route('/usuarios/nome/<string:email>', methods=['GET'])
-def buscar_usuario_por_nome(email):
+@app.route('/usuarios/email/<string:email>', methods=['GET'])
+def buscar_usuario_por_email(email):
     usuario = Usuario.query.filter_by(email=email).first()
     if not usuario:
         return jsonify({'message': 'Usuário não encontrado.'}), 404
