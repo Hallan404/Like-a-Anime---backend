@@ -123,7 +123,7 @@ def verificar_login():
         return jsonify({'message': 'Login efetuado com sucesso'}), 200
     else:
         # Trata erro de login inválido
-        return jsonify({'message': 'Usuário ou senha incorretos.'}), 401
+        return jsonify({'error': 'Usuário ou senha incorretos.'}), 401
 
 
 # Rota para atualizar um usuário
