@@ -45,9 +45,13 @@ def criar_usuario():
     if 'animes_preferidos' in novo_usuario:
         animes_preferidos = Anime.query.filter(Anime.nome.in_(novo_usuario['animes_preferidos'])).all()
         usuario.animes_preferidos = animes_preferidos
-    db.session.add(usuario)
-    db.session.commit()
-    return jsonify({'message': 'Usuário criado com sucesso.'})
+    try:
+        db.session.add(usuario)
+        db.session.commit()
+        return jsonify({'message': 'Usuário criado com sucesso.'})
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify({'error': 'Este email já está registrado.'}), 409
 
 # Rota para obter todos os usuários
 @app.route('/usuarios', methods=['GET'])
