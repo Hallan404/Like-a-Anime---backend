@@ -102,6 +102,29 @@ def buscar_usuario_por_email(email):
         'senha': usuario.senha,
         'animes_preferidos': [anime.nome for anime in usuario.animes_preferidos]
     })
+    # Verificação de login
+@app.route('/verificar-login', methods=['POST'])
+def verificar_login():
+    dados_login = request.json
+    email = dados_login.get('email')
+    apelido = dados_login.get('apelido')
+    senha = dados_login.get('senha')
+
+    # Verifica se foi enviado um email ou um apelido
+    if email:
+        usuario = Usuario.query.filter_by(email=email).first()
+    elif apelido:
+        usuario = Usuario.query.filter_by(apelido=apelido).first()
+    else:
+        return jsonify({'message': 'Por favor, forneça um email ou um apelido.'}), 400
+
+    # Verifica se o usuário foi encontrado e se a senha está correta
+    if usuario and usuario.senha == senha:        
+        return jsonify({'message': 'Login efetuado com sucesso'}), 200
+    else:
+        # Trata erro de login inválido
+        return jsonify({'message': 'Usuário ou senha incorretos.'}), 401
+
 
 # Rota para atualizar um usuário
 @app.route('/usuarios/int:id', methods=['PUT'])
