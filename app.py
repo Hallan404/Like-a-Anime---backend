@@ -141,14 +141,16 @@ def atualizar_usuario(id):
 
     if 'animes_preferidos' in dados_atualizados:
         animes_preferidos = dados_atualizados['animes_preferidos']
-        usuario.animes_preferidos.extend(animes_preferidos)
+    for anime_nome in animes_preferidos:
+        anime = Anime(nome=anime_nome)  # Crie um novo objeto Anime
+        usuario.animes_preferidos.append(anime)
 
     db.session.commit()
     return jsonify({'message': 'Usuário atualizado com sucesso.'}), 200
 
 
 # Rota para excluir um usuário
-@app.route('/usuarios/i<int:id>', methods=['DELETE'])
+@app.route('/usuarios/<int:id>', methods=['DELETE'])
 def excluir_usuario(id):
     usuario = Usuario.query.get(id)
     if not usuario:
