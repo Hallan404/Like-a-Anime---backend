@@ -127,7 +127,7 @@ def verificar_login():
 
 
 # Rota para atualizar um usuário
-@app.route('/usuarios/int:id', methods=['PUT'])
+@app.route('/usuarios/<int:id>', methods=['PUT'])
 def atualizar_usuario(id):
     usuario = Usuario.query.get(id)
     if not usuario:

@@ -1,7 +1,6 @@
 import subprocess
 import sys
 
-
 def git_pull():
     subprocess.check_call(['git', 'pull'])
 try:
