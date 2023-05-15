@@ -132,16 +132,20 @@ def atualizar_usuario(id):
     usuario = Usuario.query.get(id)
     if not usuario:
         return jsonify({'message': 'Usuário não encontrado.'}), 404
+
     dados_atualizados = request.json
     usuario.nome = dados_atualizados.get('nome', usuario.nome)
     usuario.apelido = dados_atualizados.get('apelido',usuario.apelido)
     usuario.email = dados_atualizados.get('email', usuario.email)
     usuario.senha = dados_atualizados.get('senha', usuario.senha)
+
     if 'animes_preferidos' in dados_atualizados:
         animes_preferidos = Anime.query.filter(Anime.nome.in_(dados_atualizados['animes_preferidos'])).all()
         usuario.animes_preferidos = animes_preferidos
-        db.session.commit()
-        return jsonify({'message': 'Usuário atualizado com sucesso.'})
+
+    db.session.commit()
+    return jsonify({'message': 'Usuário atualizado com sucesso.'}), 200
+
 
 # Rota para excluir um usuário
 @app.route('/usuarios/int:id', methods=['DELETE'])
