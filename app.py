@@ -44,7 +44,7 @@ def criar_usuario():
     usuario = Usuario(nome=novo_usuario['nome'], apelido=novo_usuario['apelido'],
                       email=novo_usuario['email'], senha=novo_usuario['senha'])
     if 'animes_preferidos' in novo_usuario:
-        animes_preferidos = Anime.query.filter(Anime.nome.in_(novo_usuario['animes_preferidos'])).all()
+        animes_preferidos = novo_usuario['animes_preferidos']
         usuario.animes_preferidos = animes_preferidos
     try:
         db.session.add(usuario)
