@@ -141,8 +141,7 @@ def atualizar_usuario(id):
 
     if 'animes_preferidos' in dados_atualizados:
         animes_preferidos = dados_atualizados['animes_preferidos']
-        for anime_nome in animes_preferidos:            
-            usuario.animes_preferidos.append(anime_nome)
+        usuario.animes_preferidos.extend(animes_preferidos)
 
     db.session.commit()
     return jsonify({'message': 'Usuário atualizado com sucesso.'}), 200
