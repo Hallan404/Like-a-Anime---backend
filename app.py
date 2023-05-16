@@ -33,7 +33,7 @@ usuario_anime = db.Table('usuario_anime',
 )
 @app.route('/')
 def initial():
-<<<<<<< HEAD
+
     return '''<h2>API construída para o projeto integrador 4</h2>
     <h2>"Desenvolvimento de Sistemas"</h2>
     <h3>Documentação dos Endpoints:</h3>
@@ -206,12 +206,6 @@ def initial():
 </div>
 
     '''
-
-=======
-    return '''<h1>API Like a anime</h1>
-<p> Api construida para o projeto integrador 4 </p>
-<h3>"Construção de Portal"</h3>'''
->>>>>>> 4a3b7d9f881bbe3e654ab0dba2ba695168352b67
 
 # Rota para criar um novo usuário
 @app.route('/usuarios', methods=['POST'])
