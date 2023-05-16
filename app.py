@@ -141,9 +141,20 @@ def atualizar_usuario(id):
 
     if 'animes_preferidos' in dados_atualizados:
         animes_preferidos = dados_atualizados['animes_preferidos']
-        for anime_dados in animes_preferidos:
-            anime = Anime(nome=anime_dados['nome'], categoria=anime_dados['categoria'])
-            usuario.animes_preferidos.append(anime)
+    for anime_dados in animes_preferidos:
+        nome_anime = anime_dados['nome']
+        categoria_anime = anime_dados['categoria']
+        
+        # Verificar se o anime já existe no banco de dados
+        anime_existente = Anime.query.filter_by(nome=nome_anime).first()
+        
+        if anime_existente:
+            # Se o anime já existe, adicioná-lo à lista de animes preferidos do usuário
+            usuario.animes_preferidos.append(anime_existente)
+        else:
+            # Se o anime não existe, criar um novo objeto Anime e adicioná-lo à lista
+            novo_anime = Anime(nome=nome_anime, categoria=categoria_anime)
+            usuario.animes_preferidos.append(novo_anime)
 
     db.session.commit()
     return jsonify({'message': 'Usuário atualizado com sucesso.'}), 200
