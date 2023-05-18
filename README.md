@@ -2,8 +2,8 @@
 
 # Backend do Sistema de Recomendação de Animes
 
-Este repositório contém o código-fonte do backend do Sistema de Recomendação de Animes, 
-um projeto desenvolvido como parte de um trabalho acadêmico Projeto Integrador IV - Desenvolvimento de Portais.
+Este repositório contém o código-fonte do backend do Aplicativo escolha de Animes, 
+um projeto desenvolvido como parte de um trabalho acadêmico Projeto Integrador IV - Desenvolvimento de Sistemas.
 O backend é responsável por gerenciar a lógica de negócio, o banco de dados e fornecer a API para comunicação 
 com o front-end.
 
